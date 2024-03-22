@@ -276,9 +276,9 @@ namespace TheoryOfAlgorithms
 
             Random random = new Random();
             // Create a graph given in the above diagram
-            int n = 30;
-            Graph graph = new Graph(random.Next(n));
-            graph.GenerateRandomEdges(60);
+            int n = 500;
+            Graph graph = new Graph(n);
+            graph.GenerateRandomEdges(1500);
 
 
             //graph.addEdge(1, 7);
@@ -451,8 +451,8 @@ namespace TheoryOfAlgorithms
             stopwatch.Start();
             sccCount = 0;
             pathFinding graph = new pathFinding();
-            int V = 200;
-            List<List<int>> edges = graph.GenerateRandomEdges(50, 500);
+            int V = 30;
+            List<List<int>> edges = graph.GenerateRandomEdges(V, 100);
         //    List<List<int>> edges = new List<List<int>>
         //{
         //    new List<int> { 1, 7 }, new List<int> { 1, 4 }, new List<int> { 2, 3 },
