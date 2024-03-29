@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C18F05B3-977C-4F30-854C-81FEC14463E0}</ProjectGuid>
+    <ProjectGuid>{D01A8225-18DE-4B9B-AB1C-26F66FB6B891}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TheoryOfAlgorithms</RootNamespace>
-    <AssemblyName>TheoryOfAlgorithms</AssemblyName>
+    <RootNamespace>Laba4</RootNamespace>
+    <AssemblyName>Laba4</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -65,7 +65,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -79,15 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\photo_2024-03-12_14-01-50.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\photo_2024-03-06_17-17-10.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
