@@ -50,8 +50,7 @@ namespace Laba4
             foreach (string number in studentNumbers)
             {
                 int studentNumber;
-                if (int.TryParse(number, out studentNumber))
-                {
+                if (int.TryParse(number, out studentNumber) && studentNumber > 0) { 
                     studentsList.Add(studentNumber);
                 }
                 else
@@ -94,7 +93,7 @@ namespace Laba4
             foreach (string number in studentNumbers)
             {
                 int studentNumber;
-                if (int.TryParse(number, out studentNumber))
+                if (int.TryParse(number, out studentNumber) && studentNumber > 0)
                 {
                     studentsList.Add(studentNumber);
                 }
@@ -200,24 +199,25 @@ namespace Laba4
                     text.Add("Time elapsed while enqueueing (ms):" + (double)timespan.Ticks / 10000);
                 }
 
-                
-                
+
+
                 void OutputExam(bool practise = false)
                 {
-                    
-                    stopwatch.Start();
-
                     int taskNumber = 1;
                     string line = "";
-
+                    stopwatch.Start();
                     int currentStudent = (queueType == 1) ? queue.Dequeue() : pointedQueue.Dequeue();
+                    stopwatch.Stop();
+                    timespan = stopwatch.Elapsed;
+                    stopwatch.Reset();
+                    text.Add("Time elapsed while dequeueing (ms):" + (double)timespan.Ticks / 10000);
                     while ((queueType == 1) ? !queue.IsEmpty() : !pointedQueue.IsEmpty())
                     {
                         taskNumber += 1;
-                       
+
                         line = (practise) ? "Practical work №" + (taskNumber - 1) + " and №" + (taskNumber) + " for" :
                             "Theoretical survey №" + (taskNumber - 1) + " and №" + (taskNumber) + " for";
-                        
+
 
                         int nextStudent = (queueType == 1) ? queue.Dequeue() : pointedQueue.Dequeue();
                         text.Add(line + " " + currentStudent);
@@ -228,10 +228,6 @@ namespace Laba4
                     line = (practise) ? "Practical work №" + (taskNumber - 1) + " and №" + (taskNumber) + " for" :
                             "Theoretical survey №" + (taskNumber - 1) + " and №" + (taskNumber) + " for";
                     text.Add(line + " " + currentStudent);
-                    stopwatch.Stop();
-                    timespan = stopwatch.Elapsed;
-                    stopwatch.Reset();
-                    text.Add("Time elapsed while dequeueing (ms):" + (double)timespan.Ticks / 10000);
                 }
 
             }
@@ -247,7 +243,15 @@ namespace Laba4
 
         }
 
-        
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
     class Queue

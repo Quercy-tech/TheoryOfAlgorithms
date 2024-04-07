@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheoryOfAlgorithms", "Theor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba4", "Laba4\Laba4.csproj", "{D01A8225-18DE-4B9B-AB1C-26F66FB6B891}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba6", "Laba5\Laba6.csproj", "{791B5C69-0A1C-4433-893E-E9FF381CB789}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabaOpenHashing", "LabaOpenHashing\LabaOpenHashing.csproj", "{7F489EA4-6794-43C3-939E-EBCD5B9DE848}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{D01A8225-18DE-4B9B-AB1C-26F66FB6B891}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D01A8225-18DE-4B9B-AB1C-26F66FB6B891}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D01A8225-18DE-4B9B-AB1C-26F66FB6B891}.Release|Any CPU.Build.0 = Release|Any CPU
+		{791B5C69-0A1C-4433-893E-E9FF381CB789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{791B5C69-0A1C-4433-893E-E9FF381CB789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{791B5C69-0A1C-4433-893E-E9FF381CB789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{791B5C69-0A1C-4433-893E-E9FF381CB789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F489EA4-6794-43C3-939E-EBCD5B9DE848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F489EA4-6794-43C3-939E-EBCD5B9DE848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F489EA4-6794-43C3-939E-EBCD5B9DE848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F489EA4-6794-43C3-939E-EBCD5B9DE848}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

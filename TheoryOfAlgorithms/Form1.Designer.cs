@@ -29,6 +29,7 @@ namespace TheoryOfAlgorithms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.FordFalkerson = new System.Windows.Forms.Button();
             this.EdmonsKarp = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -75,25 +76,20 @@ namespace TheoryOfAlgorithms
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::TheoryOfAlgorithms.Properties.Resources.beautiful_smooth_haired_red_cat_lies_on_the_sofa_royalty_free_image_1678488026;
-            this.pictureBox2.Location = new System.Drawing.Point(1487, 867);
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(168, 225);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(519, 414);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 12;
+            this.pictureBox2.Size = new System.Drawing.Size(1191, 864);
+            this.pictureBox2.TabIndex = 18;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click_1);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::TheoryOfAlgorithms.Properties.Resources.photo_2024_03_12_14_01_50;
-            this.pictureBox1.Location = new System.Drawing.Point(271, 126);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(791, 821);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // textBox1
             // 
