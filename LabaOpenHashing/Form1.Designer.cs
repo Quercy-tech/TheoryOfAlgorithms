@@ -53,13 +53,18 @@ namespace LabaOpenHashing
             this.label10 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(463, 25);
+            this.label1.Location = new System.Drawing.Point(469, 161);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(293, 32);
             this.label1.TabIndex = 0;
@@ -68,23 +73,24 @@ namespace LabaOpenHashing
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(57, 147);
+            this.textBox1.Location = new System.Drawing.Point(63, 261);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(292, 26);
             this.textBox1.TabIndex = 1;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(57, 282);
+            this.textBox2.Location = new System.Drawing.Point(63, 396);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(292, 26);
             this.textBox2.TabIndex = 2;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(149, 79);
+            this.label2.Location = new System.Drawing.Point(155, 193);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 32);
             this.label2.TabIndex = 3;
@@ -94,7 +100,7 @@ namespace LabaOpenHashing
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(149, 221);
+            this.label3.Location = new System.Drawing.Point(155, 335);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 32);
             this.label3.TabIndex = 4;
@@ -102,7 +108,7 @@ namespace LabaOpenHashing
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(113, 330);
+            this.button1.Location = new System.Drawing.Point(119, 444);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(162, 52);
             this.button1.TabIndex = 5;
@@ -112,7 +118,7 @@ namespace LabaOpenHashing
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(526, 332);
+            this.button2.Location = new System.Drawing.Point(532, 446);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(162, 49);
             this.button2.TabIndex = 7;
@@ -122,7 +128,7 @@ namespace LabaOpenHashing
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(469, 146);
+            this.textBox3.Location = new System.Drawing.Point(475, 260);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(264, 26);
             this.textBox3.TabIndex = 8;
@@ -132,15 +138,15 @@ namespace LabaOpenHashing
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(564, 79);
+            this.label4.Location = new System.Drawing.Point(570, 193);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 32);
+            this.label4.Size = new System.Drawing.Size(84, 32);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Name";
+            this.label4.Text = "Index";
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(940, 332);
+            this.button3.Location = new System.Drawing.Point(946, 446);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(162, 50);
             this.button3.TabIndex = 10;
@@ -150,7 +156,7 @@ namespace LabaOpenHashing
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(892, 147);
+            this.textBox4.Location = new System.Drawing.Point(898, 261);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(264, 26);
             this.textBox4.TabIndex = 11;
@@ -160,7 +166,7 @@ namespace LabaOpenHashing
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(983, 79);
+            this.label5.Location = new System.Drawing.Point(989, 193);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 32);
             this.label5.TabIndex = 12;
@@ -170,7 +176,7 @@ namespace LabaOpenHashing
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(463, 408);
+            this.label6.Location = new System.Drawing.Point(469, 522);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(339, 32);
             this.label6.TabIndex = 13;
@@ -180,7 +186,7 @@ namespace LabaOpenHashing
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(983, 468);
+            this.label7.Location = new System.Drawing.Point(989, 582);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(90, 32);
             this.label7.TabIndex = 24;
@@ -188,7 +194,7 @@ namespace LabaOpenHashing
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(892, 536);
+            this.textBox5.Location = new System.Drawing.Point(898, 650);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(264, 26);
             this.textBox5.TabIndex = 23;
@@ -196,7 +202,7 @@ namespace LabaOpenHashing
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(940, 721);
+            this.button4.Location = new System.Drawing.Point(946, 835);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(162, 50);
             this.button4.TabIndex = 22;
@@ -208,15 +214,15 @@ namespace LabaOpenHashing
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(564, 468);
+            this.label8.Location = new System.Drawing.Point(570, 582);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 32);
+            this.label8.Size = new System.Drawing.Size(84, 32);
             this.label8.TabIndex = 21;
-            this.label8.Text = "Name";
+            this.label8.Text = "Index";
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(469, 535);
+            this.textBox6.Location = new System.Drawing.Point(475, 649);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(264, 26);
             this.textBox6.TabIndex = 20;
@@ -224,7 +230,7 @@ namespace LabaOpenHashing
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(526, 721);
+            this.button5.Location = new System.Drawing.Point(532, 835);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(162, 49);
             this.button5.TabIndex = 19;
@@ -234,7 +240,7 @@ namespace LabaOpenHashing
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(113, 719);
+            this.button6.Location = new System.Drawing.Point(119, 833);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(162, 52);
             this.button6.TabIndex = 18;
@@ -246,7 +252,7 @@ namespace LabaOpenHashing
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(149, 610);
+            this.label9.Location = new System.Drawing.Point(155, 724);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 32);
             this.label9.TabIndex = 17;
@@ -256,7 +262,7 @@ namespace LabaOpenHashing
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(149, 468);
+            this.label10.Location = new System.Drawing.Point(155, 582);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(90, 32);
             this.label10.TabIndex = 16;
@@ -264,7 +270,7 @@ namespace LabaOpenHashing
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(57, 671);
+            this.textBox7.Location = new System.Drawing.Point(63, 785);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(292, 26);
             this.textBox7.TabIndex = 15;
@@ -272,17 +278,75 @@ namespace LabaOpenHashing
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(57, 536);
+            this.textBox8.Location = new System.Drawing.Point(63, 650);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(292, 26);
             this.textBox8.TabIndex = 14;
             this.textBox8.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(1259, 260);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(556, 264);
+            this.listBox1.TabIndex = 25;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged_1);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(1470, 181);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(98, 31);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Grades";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(1484, 583);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(98, 31);
+            this.label12.TabIndex = 27;
+            this.label12.Text = "Grades";
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 20;
+            this.listBox2.Location = new System.Drawing.Point(1259, 649);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(556, 264);
+            this.listBox2.TabIndex = 28;
+            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(58, 29);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(1137, 87);
+            this.label13.TabIndex = 29;
+            this.label13.Text = "Варіант 6: Скласти список групи із середнім рейтинговим балом за 1 семестр, для м" +
+    "ожливості в\r\nподальшому доступу до цих даних виключно старости згенерувати відпо" +
+    "відну хеш-\r\nтаблицю.";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1415, 865);
+            this.ClientSize = new System.Drawing.Size(2020, 1165);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.button4);
@@ -340,6 +404,11 @@ namespace LabaOpenHashing
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Label label13;
     }
 }
 

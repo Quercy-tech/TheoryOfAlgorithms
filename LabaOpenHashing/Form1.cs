@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace LabaOpenHashing
 {
@@ -20,6 +21,7 @@ namespace LabaOpenHashing
         public HashTableFirst hashtable = new HashTableFirst();
         public HashTableSecond hashtable2 = new HashTableSecond();
         public static int sizeTable = 10;
+        public double totalValue = 0;
 
         public class Node
         {
@@ -44,7 +46,7 @@ namespace LabaOpenHashing
                 table = new List<Node>[capacity];
             }
 
-            private int Hash(string key)
+            public int Hash(string key)
             {
                 // Simple hash function using sum of character codes
                 int hash = 0;
@@ -54,15 +56,19 @@ namespace LabaOpenHashing
                 }
                 return hash % capacity;
             }
-
+                                                         
             public int Insert(string key, object value)
             {
+                //Stopwatch stopwatch = new Stopwatch();
+                //stopwatch.Start();
                 int index = Hash(key);
                 if (table[index] == null)
                 {
                     table[index] = new List<Node>();
                 }
                 table[index].Add(new Node(key, value));
+                //stopwatch.Stop();
+                //MessageBox.Show("Пройшло " + stopwatch.ElapsedMilliseconds + "ms");
                 return index;
             }
 
@@ -107,14 +113,14 @@ namespace LabaOpenHashing
         {
             string name = textBox1.Text;
             object mark = textBox2.Text;
-            if (int.TryParse(textBox2.Text, out int markInt))
+            if (int.TryParse(textBox2.Text, out int markInt) && markInt < 100 && markInt > 0)
             {
                 int index = hashtable.Insert(name, markInt);
-                MessageBox.Show($"{name} був доданий до хеш таблиці під індексом {index}");
+                listBox1.Items.Add($"Учень {name} з індексом {index} та оцінкою {mark} \n");
             }
             else
             {
-                MessageBox.Show("Введіть число!");
+                MessageBox.Show("Введіть число в проміжку від 0 до 100!");
             }
         }
 
@@ -126,15 +132,23 @@ namespace LabaOpenHashing
         private void button2_Click(object sender, EventArgs e)
         {
             string name = textBox3.Text;
-            try
+
+            if (int.TryParse(textBox3.Text, out int markInt) && markInt <= sizeTable && markInt > 0)
             {
-                hashtable.Remove(name);
-                MessageBox.Show(name + " was deleted");
+                listBox1.Items.RemoveAt(markInt - 1);
             }
-            catch (Exception)
+            else
             {
-                MessageBox.Show("Where is no such student as " + name);
+                MessageBox.Show("Введіть число в проміжку від 0 до " + sizeTable);
             }
+            //try
+            //{
+            //    hashtable.Remove(name);
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Where is no such student as " + name);
+            //}
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
@@ -250,13 +264,13 @@ namespace LabaOpenHashing
         {
             string name = textBox8.Text;
             object mark = textBox7.Text;
-            if (int.TryParse(textBox7.Text, out int markInt))
+            if (int.TryParse(textBox7.Text, out int markInt) && markInt < 100 && markInt > 0)
             {
                 int index = hashtable2.Insert(name, markInt);
-                MessageBox.Show($"{name} був доданий до хеш таблиці під індексом {index}");
+                listBox2.Items.Add($"Учень {name} з індексом {index} та оцінкою {mark} \n");
             } else
             {
-                MessageBox.Show("Введіть число!");
+                MessageBox.Show("Введіть число в проміжку від 0 до 100!");
             }
             
         }
@@ -269,14 +283,13 @@ namespace LabaOpenHashing
         private void button5_Click(object sender, EventArgs e)
         {
             string name = textBox6.Text;
-            try
+            if (int.TryParse(textBox3.Text, out int markInt) && markInt <= sizeTable && markInt > 0)
             {
-                hashtable2.Remove(name);
-                MessageBox.Show(name + " was deleted");
+                listBox2.Items.RemoveAt(markInt - 1);
             }
-            catch (Exception)
+            else
             {
-                MessageBox.Show("Where is no such student as " + name);
+                MessageBox.Show("Введіть число в проміжку від 0 до " + sizeTable);
             }
         }
 
@@ -298,6 +311,27 @@ namespace LabaOpenHashing
                 MessageBox.Show("Where is no such student as " + name);
             }
         }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 
 
