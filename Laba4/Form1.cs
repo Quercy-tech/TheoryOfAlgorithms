@@ -55,9 +55,9 @@ namespace Laba4
             if (counter < result.Count)
                 richTextBox1.Text += (result[counter] + "\n");
 
-            if (counter >= 2 * studentsNumber && counter % 2 == 0 && s.Length >= 0)
+            if (counter >= 2 * studentsNumber && counter % 2 == 0 && s.Length >= 2)
             {
-                s = s.Substring(0, s.Length - 2);
+                s = s.Substring(2);
                 richTextBox3.Text = s;
             }
 
@@ -81,9 +81,9 @@ namespace Laba4
                 richTextBox1.Text += (result[counter] + "\n");
 
 
-                if (counter >= 2 * studentsNumber && counter % 2 == 0 && s.Length >= 0)
+                if (counter >= 2 * studentsNumber && counter % 2 == 0 && s.Length >= 2)
                 {
-                    s = s.Substring(0, s.Length - 2);
+                s = s.Substring(2);
                     richTextBox3.Text = s;
                 }
 
