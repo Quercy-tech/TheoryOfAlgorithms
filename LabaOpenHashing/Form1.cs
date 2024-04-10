@@ -72,7 +72,7 @@ namespace LabaOpenHashing
             listBox2.Items.Add($"Учень Denis з індексом {index8} та оцінкою 92 \n");
 
             stopwatch.Stop();
-            MessageBox.Show("Це зайняло " + stopwatch.ElapsedMilliseconds + "ms");
+            MessageBox.Show("Це зайняло " + stopwatch.ElapsedTicks + "ticks");
         }
 
 
@@ -126,6 +126,10 @@ namespace LabaOpenHashing
                     table[index] = new List<Node>();
                 }
                 table[index].Add(new Node(key, value));
+                if (table[index].Count > 1)
+                {
+                    MessageBox.Show("Collision!");
+                }
                 return index;
             }
 
@@ -271,6 +275,10 @@ namespace LabaOpenHashing
                     table[index] = new List<Node>();
                 }
                 table[index].Add(new Node(key, value));
+                if(table[index].Count > 1)
+                {
+                    MessageBox.Show("Collision!");
+                }
                 return index;
             }
 

@@ -27,7 +27,7 @@ namespace LabaOpenHashing
                 
             } else
             {
-                MessageBox.Show("Та за шо, ви не староста!");
+                MessageBox.Show("Зрада!");
             }
         }
 

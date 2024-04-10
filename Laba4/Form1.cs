@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Diagnostics;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Laba4
@@ -15,7 +18,6 @@ namespace Laba4
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            richTextBox2.Text = "1,3";
         }
 
         private List<int> studentsList = new List<int>() { 3, 2, 1 };
@@ -35,35 +37,11 @@ namespace Laba4
 
         }
 
+        public int counter = 0;
+        public int dequeCounter = 0;
+
         private void button1_Click(object sender, EventArgs e)
         {
-            // Clear the existing list in case of multiple modifications
-            studentsList.Clear();
-
-            // Get the text from the textbox
-            string textBoxContent = richTextBox2.Text;
-
-            // Split the text by comma or any other delimiter you prefer
-            string[] studentNumbers = textBoxContent.Split(',');
-
-            // Try converting each string to int and add to the list
-            foreach (string number in studentNumbers)
-            {
-                int studentNumber;
-                if (int.TryParse(number, out studentNumber) && studentNumber > 0) { 
-                    studentsList.Add(studentNumber);
-                }
-                else
-                {
-                    richTextBox2.Text = "";
-                    MessageBox.Show("Enter valid input!");
-                    return;
-
-                }
-            }
-
-
-
             // Sample usage
 
             int queueType = 0; // FIFO queue
@@ -71,43 +49,24 @@ namespace Laba4
 
             Algorithm algorithm = new Algorithm();
             List<string> result = algorithm.TakingExam(studentsList, queueType, studentsNumber);
-            foreach (string line in result)
+
+            string s = richTextBox3.Text;
+
+            if (counter < result.Count)
+                richTextBox1.Text += (result[counter] + "\n");
+
+            if (counter >= 2 * studentsNumber && counter % 2 == 0 && s.Length >= 0)
             {
-                richTextBox1.Text += line + "\n";
+                s = s.Substring(0, s.Length - 2);
+                richTextBox3.Text = s;
             }
+
+            counter += 1;
         }
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            // Clear the existing list in case of multiple modifications
-            studentsList.Clear();
-
-            // Get the text from the textbox
-            string textBoxContent = richTextBox2.Text;
-
-            // Split the text by comma or any other delimiter you prefer
-            string[] studentNumbers = textBoxContent.Split(',');
-
-            // Try converting each string to int and add to the list
-            foreach (string number in studentNumbers)
-            {
-                int studentNumber;
-                if (int.TryParse(number, out studentNumber) && studentNumber > 0)
-                {
-                    studentsList.Add(studentNumber);
-                }
-                else
-                {
-                    richTextBox2.Text = "";
-                    MessageBox.Show("Enter valid input!");
-                    return;
-
-                }
-            }
-
-
-
             // Sample usage
 
             int queueType = 1; // FIFO queue
@@ -115,10 +74,21 @@ namespace Laba4
 
             Algorithm algorithm = new Algorithm();
             List<string> result = algorithm.TakingExam(studentsList, queueType, studentsNumber);
-            foreach (string line in result)
-            {
-                richTextBox1.Text += line + "\n";
-            }
+
+            string s = richTextBox3.Text;
+
+            if (counter < result.Count)
+                richTextBox1.Text += (result[counter] + "\n");
+
+
+                if (counter >= 2 * studentsNumber && counter % 2 == 0 && s.Length >= 0)
+                {
+                    s = s.Substring(0, s.Length - 2);
+                    richTextBox3.Text = s;
+                }
+
+            counter += 1;
+            
 
 
 
@@ -131,8 +101,6 @@ namespace Laba4
                 Queue queue = new Queue(studentsNumber); //Initialising
                 PointedQueue pointedQueue = new PointedQueue();
                 List<string> text = new List<string>();
-                Stopwatch stopwatch = new Stopwatch();
-                TimeSpan timespan = new TimeSpan();
 
                 int charNumber = 0; //Outputing the queue
                 foreach (int student in studentsList)
@@ -156,13 +124,11 @@ namespace Laba4
                     i++;
                 }
                 String queueLine = new String(queueLineList);
-                text.Add(queueLine);
 
                 try //Do the task and count the time
                 {
                     FillingQueue();
                     OutputExam();
-                    text.Add("-----Break-----");
                     FillingQueue();
                     OutputExam(true);
                 }
@@ -181,7 +147,6 @@ namespace Laba4
 
                 void FillingQueue()
                 {
-                    stopwatch.Start();
                     foreach (int student in studentsList)
                     {
                         if (queueType == 1)
@@ -193,24 +158,16 @@ namespace Laba4
                             pointedQueue.Enqueue(student);
                         }
                     }
-                    stopwatch.Stop();
-                    timespan = stopwatch.Elapsed;
-                    stopwatch.Reset();
-                    text.Add("Time elapsed while enqueueing (ms):" + (double)timespan.Ticks / 10000);
+
                 }
 
-
+                
 
                 void OutputExam(bool practise = false)
                 {
                     int taskNumber = 1;
                     string line = "";
-                    stopwatch.Start();
                     int currentStudent = (queueType == 1) ? queue.Dequeue() : pointedQueue.Dequeue();
-                    stopwatch.Stop();
-                    timespan = stopwatch.Elapsed;
-                    stopwatch.Reset();
-                    text.Add("Time elapsed while dequeueing (ms):" + (double)timespan.Ticks / 10000);
                     while ((queueType == 1) ? !queue.IsEmpty() : !pointedQueue.IsEmpty())
                     {
                         taskNumber += 1;
@@ -220,8 +177,9 @@ namespace Laba4
 
 
                         int nextStudent = (queueType == 1) ? queue.Dequeue() : pointedQueue.Dequeue();
+                        
                         text.Add(line + " " + currentStudent);
-                        text.Add("Transfering part of task №" + taskNumber + " for " + nextStudent);
+                        text.Add("Transfering part of task №" + taskNumber + " for student " + nextStudent);
                         currentStudent = nextStudent;
                     }
                     taskNumber += 1;
@@ -245,7 +203,34 @@ namespace Laba4
 
         private void button3_Click(object sender, EventArgs e)
         {
+            //richTextBox1.Text = "";
+            richTextBox3.Text = "";
+            // Clear the existing list in case of multiple modifications
+            studentsList.Clear();
 
+            // Get the text from the textbox
+            string textBoxContent = richTextBox2.Text;
+
+            // Split the text by comma or any other delimiter you prefer
+            string[] studentNumbers = textBoxContent.Split(',');
+
+            // Try converting each string to int and add to the list
+            foreach (string number in studentNumbers)
+            {
+                int studentNumber;
+                if (int.TryParse(number, out studentNumber) && studentNumber > 0)
+                {
+                    studentsList.Add(studentNumber);
+                    richTextBox3.Text += (number + "\n");
+                }
+                else
+                {
+                    richTextBox2.Text = "";
+                    MessageBox.Show("Enter valid input!");
+                    return;
+
+                }
+            }
         }
 
         private void richTextBox3_TextChanged(object sender, EventArgs e)
