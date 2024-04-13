@@ -72,16 +72,19 @@ namespace LabaOpenHashing
             listBox2.Items.Add($"Учень Denis з індексом {index8} та оцінкою 92 \n");
 
             stopwatch.Stop();
-            MessageBox.Show("Це зайняло " + stopwatch.ElapsedTicks + "ticks");
+            //MessageBox.Show("Це зайняло " + stopwatch.ElapsedTicks + "ticks");
         }
 
 
 
         public HashTableFirst hashtable = new HashTableFirst();
         public HashTableSecond hashtable2 = new HashTableSecond();
-        public static int sizeTable = 10;
+        public static int sizeTable = 13;
         public List<string> students = new List<string>();
         public List<string> students2 = new List<string>();
+
+        public static int isReady = 0;
+        public static int k = 0;
 
         public class Node
         {
@@ -107,7 +110,7 @@ namespace LabaOpenHashing
                 table = new List<Node>[capacity];
             }
 
-            public int Hash(string key)
+            public int Hash(string key, int k)
             {
                 // Simple hash function using sum of character codes
                 int hash = 0;
@@ -115,60 +118,69 @@ namespace LabaOpenHashing
                 {
                     hash += (int)c;
                 }
-                return hash % capacity;
+                
+                return (hash + k) % capacity;
             }
-                                                         
+
             public int Insert(string key, object value)
             {
-                int index = Hash(key);
-                if (table[index] == null)
+                int k = 0;
+                while (k < capacity)
                 {
-                    table[index] = new List<Node>();
+                    int index = Hash(key, k);
+
+                    if (table[index] == null)
+                    {
+                        table[index] = new List<Node>();
+                        table[index].Add(new Node(key, value));
+                        return index; // Return the index where insertion occurred
+                    }
+
+                    k += 1;
                 }
-                table[index].Add(new Node(key, value));
-                if (table[index].Count > 1)
-                {
-                    MessageBox.Show("Collision!");
-                }
-                return index;
+
+                // If table is full after trying all indices
+                MessageBox.Show("The table is full :(");
+                return -1; // Or handle table full condition appropriately
             }
 
             public object Get(string key)
             {
-                int index = Hash(key);
-                if (table[index] == null)
+                int k = 0;
+                while (k < capacity)
                 {
-                    return null;
-                }
-                foreach (Node node in table[index])
-                {
-                    if (node.Key == key)
+                    int index = Hash(key, k);
+
+                    if (table[index] != null && table[index][0].Key == key)
                     {
-                        return node.Value;
+                        return table[index][0].Value;
                     }
+
+                    k += 1;
                 }
-                return null;
-                
+
+                return null; // Key not found
             }
+
 
             public object Remove(string key)
             {
-                int index = Hash(key);
-                if (table[index] == null)
+                int k = 0;
+                while (k < capacity)
                 {
-                    return null;
-                }
-                for (int i = 0; i < table[index].Count; i++)
-                {
-                    if (table[index][i].Key == key)
+                    int index = Hash(key, k);
+
+                    if (table[index] != null && table[index][0].Key == key)
                     {
-                        object value = table[index][i].Value;
-                        table[index].RemoveAt(i);
+                        object value = table[index][0].Value;
+                        table[index] = null; // Clear the list at this index
                         return value;
                     }
-                }
-                return null;
 
+                    k += 1;
+                }
+
+                return null; // Key not found
             }
 
         }
@@ -254,68 +266,79 @@ namespace LabaOpenHashing
             {
                 table = new List<Node>[capacity];
             }
-            private int Hash(string key)
+            public int Hash(string key, int k)
             {
-                const double C = 0.564;
-                const double M = 3.44;
-                // Simple hash function using sum of character codes
-                double hash = 0;
+                int hash = 0;
                 foreach (char c in key)
                 {
-                    hash += (double)c;
+                    hash += (int)c;
                 }
-                return  (int)Math.Abs(M * ((C * hash) % 1));
+
+                return (hash + k*k) % capacity;
             }
 
             public int Insert(string key, object value)
             {
-                int index = Hash(key);
-                if (table[index] == null)
+                int k = 0;
+                while (k < capacity)
                 {
-                    table[index] = new List<Node>();
+                    int index = Hash(key, k);
+
+                    if (table[index] == null)
+                    {
+                        table[index] = new List<Node>();
+                        table[index].Add(new Node(key, value));
+                        return index; // Return the index where insertion occurred
+                    }
+
+                    k += 1;
+
+                    if (table[index] != null)
+                        continue;
                 }
-                table[index].Add(new Node(key, value));
-                if(table[index].Count > 1)
-                {
-                    MessageBox.Show("Collision!");
-                }
-                return index;
+
+                // If table is full after trying all indices
+                MessageBox.Show("The table is full :(");
+                return -1; // Or handle table full condition appropriately
             }
 
             public object Get(string key)
             {
-                int index = Hash(key);
-                if (table[index] == null)
+                int k = 0;
+                while (k < capacity)
                 {
-                    return null;
-                }
-                foreach (Node node in table[index])
-                {
-                    if (node.Key == key)
+                    int index = Hash(key, k);
+
+                    if (table[index] != null && table[index][0].Key == key)
                     {
-                        return node.Value;
+                        return table[index][0].Value;
                     }
+
+                    k += 1;
                 }
-                return null;
+
+                return null; // Key not found
             }
+
 
             public object Remove(string key)
             {
-                int index = Hash(key);
-                if (table[index] == null)
+                int k = 0;
+                while (k < capacity)
                 {
-                    return null;
-                }
-                for (int i = 0; i < table[index].Count; i++)
-                {
-                    if (table[index][i].Key == key)
+                    int index = Hash(key, k);
+
+                    if (table[index] != null && table[index][0].Key == key)
                     {
-                        object value = table[index][i].Value;
-                        table[index].RemoveAt(i);
+                        object value = table[index][0].Value;
+                        table[index] = null; // Clear the list at this index
                         return value;
                     }
+
+                    k += 1;
                 }
-                return null;
+
+                return null; // Key not found
             }
         }
 
