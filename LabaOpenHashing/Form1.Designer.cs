@@ -66,9 +66,9 @@ namespace LabaOpenHashing
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(469, 112);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(293, 32);
+            this.label1.Size = new System.Drawing.Size(319, 32);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Hashing (first method)";
+            this.label1.Text = "Hashing (linear probing)";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBox1
@@ -178,9 +178,9 @@ namespace LabaOpenHashing
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(454, 520);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(339, 32);
+            this.label6.Size = new System.Drawing.Size(366, 32);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Hashing (second method)";
+            this.label6.Text = "Hashing (quadratic probing)";
             // 
             // label7
             // 

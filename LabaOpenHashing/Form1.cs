@@ -19,7 +19,10 @@ namespace LabaOpenHashing
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-           
+
+            hashtable.FillTable();
+            hashtable2.FillTable();
+
             int index = hashtable.Insert("Stas", 99);
             students.Add("Stas");
             listBox1.Items.Add($"Учень Stas з індексом {index} та оцінкою 99 \n");
@@ -75,7 +78,7 @@ namespace LabaOpenHashing
             //MessageBox.Show("Це зайняло " + stopwatch.ElapsedTicks + "ticks");
         }
 
-
+        
 
         public HashTableFirst hashtable = new HashTableFirst();
         public HashTableSecond hashtable2 = new HashTableSecond();
@@ -101,13 +104,15 @@ namespace LabaOpenHashing
 
         public class HashTableFirst
         {
-            public List<Node>[] table;
-            public int capacity = sizeTable;
-            public int positionInTable = 0;
+            public List<Node> table = new List<Node>(capacity);
+            public static int capacity = sizeTable;
 
-            public HashTableFirst()
+            public void FillTable()
             {
-                table = new List<Node>[capacity];
+                for (int i = 0; i < capacity; i++)
+                {
+                    table.Add(null);
+                }
             }
 
             public int Hash(string key, int k)
@@ -131,8 +136,8 @@ namespace LabaOpenHashing
 
                     if (table[index] == null)
                     {
-                        table[index] = new List<Node>();
-                        table[index].Add(new Node(key, value));
+                        //table[index] = new Node;
+                        table[index] = new Node(key, value);
                         return index; // Return the index where insertion occurred
                     }
 
@@ -151,9 +156,9 @@ namespace LabaOpenHashing
                 {
                     int index = Hash(key, k);
 
-                    if (table[index] != null && table[index][0].Key == key)
+                    if (table[index] != null && table[index].Key == key)
                     {
-                        return table[index][0].Value;
+                        return table[index].Value;
                     }
 
                     k += 1;
@@ -170,9 +175,9 @@ namespace LabaOpenHashing
                 {
                     int index = Hash(key, k);
 
-                    if (table[index] != null && table[index][0].Key == key)
+                    if (table[index] != null && table[index].Key == key)
                     {
-                        object value = table[index][0].Value;
+                        object value = table[index].Value;
                         table[index] = null; // Clear the list at this index
                         return value;
                     }
@@ -259,15 +264,20 @@ namespace LabaOpenHashing
 
         public class HashTableSecond
         {
-            public List<Node>[] table;
-            public int capacity = sizeTable;
+            public List<Node> table = new List<Node>(capacity);
+            public static int capacity = sizeTable;
 
-            public HashTableSecond()
+            public void FillTable()
             {
-                table = new List<Node>[capacity];
+                for (int i = 0; i < capacity; i++)
+                {
+                    table.Add(null);
+                }
             }
+
             public int Hash(string key, int k)
             {
+                // Simple hash function using sum of character codes
                 int hash = 0;
                 foreach (char c in key)
                 {
@@ -286,15 +296,12 @@ namespace LabaOpenHashing
 
                     if (table[index] == null)
                     {
-                        table[index] = new List<Node>();
-                        table[index].Add(new Node(key, value));
+                        //table[index] = new Node;
+                        table[index] = new Node(key, value);
                         return index; // Return the index where insertion occurred
                     }
 
                     k += 1;
-
-                    if (table[index] != null)
-                        continue;
                 }
 
                 // If table is full after trying all indices
@@ -309,9 +316,9 @@ namespace LabaOpenHashing
                 {
                     int index = Hash(key, k);
 
-                    if (table[index] != null && table[index][0].Key == key)
+                    if (table[index] != null && table[index].Key == key)
                     {
-                        return table[index][0].Value;
+                        return table[index].Value;
                     }
 
                     k += 1;
@@ -328,9 +335,9 @@ namespace LabaOpenHashing
                 {
                     int index = Hash(key, k);
 
-                    if (table[index] != null && table[index][0].Key == key)
+                    if (table[index] != null && table[index].Key == key)
                     {
-                        object value = table[index][0].Value;
+                        object value = table[index].Value;
                         table[index] = null; // Clear the list at this index
                         return value;
                     }
