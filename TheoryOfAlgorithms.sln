@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba4", "Laba4\Laba4.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabaClosedHashing", "LabaOpenHashing\LabaClosedHashing.csproj", "{7F489EA4-6794-43C3-939E-EBCD5B9DE848}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laba7Console", "Laba7Console\Laba7Console.csproj", "{F73F78BE-F67A-4361-94FC-C6E227DD147E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba7(Binary Trees)", "Laba7(Binary Trees)\Laba7(Binary Trees).csproj", "{F8238DB5-EB92-4B95-A85E-2527922EFEBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{7F489EA4-6794-43C3-939E-EBCD5B9DE848}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F489EA4-6794-43C3-939E-EBCD5B9DE848}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F489EA4-6794-43C3-939E-EBCD5B9DE848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F73F78BE-F67A-4361-94FC-C6E227DD147E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73F78BE-F67A-4361-94FC-C6E227DD147E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73F78BE-F67A-4361-94FC-C6E227DD147E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73F78BE-F67A-4361-94FC-C6E227DD147E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8238DB5-EB92-4B95-A85E-2527922EFEBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8238DB5-EB92-4B95-A85E-2527922EFEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8238DB5-EB92-4B95-A85E-2527922EFEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8238DB5-EB92-4B95-A85E-2527922EFEBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
