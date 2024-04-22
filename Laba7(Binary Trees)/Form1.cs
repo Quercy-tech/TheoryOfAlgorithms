@@ -20,6 +20,8 @@ namespace Laba7_Binary_Trees_
             bst.Insert(12);
             bst.Insert(3);
             bst.Insert(7);
+            bst.Insert(9);
+            bst.Insert(8);
             bst.Insert(1);
             bst.Insert(5);
             bst.Insert(14);
@@ -63,18 +65,19 @@ namespace Laba7_Binary_Trees_
             {
                 if (node == null)
                 {
-                    text += $"Creating a device with {power} power";
+                    text += $"\n Creating a device with {power} power";
                     return Insert(new Node(power), power);
                 }
 
+
                 if (power < node.Power)
                 {
-                    text += $"<- {node.Power}";
+                    text += $"{node.Power}, ";
                     node.Left = Insert(node.Left, power);
                 }
                 else if (power > node.Power)
                 {
-                    text += $"{node.Power} -> ";
+                    text += $"{node.Power}, ";
                     node.Right = Insert(node.Right, power);
                 }
 
@@ -97,7 +100,7 @@ namespace Laba7_Binary_Trees_
 
                 if (node.Power == power)
                 {
-                    text += $"Device with power {power} found";
+                    text += $"\n Device with power {power} found";
                     return node;
                 }
 
@@ -105,12 +108,12 @@ namespace Laba7_Binary_Trees_
 
                 if (power < node.Power)
                 {
-                    text += $"<- {node.Power}";
+                    text += $"{node.Power}, ";
                     return Find(node.Left, power);
                 }
                 else
                 {
-                    text += $"{node.Power} -> ";
+                    text += $"{node.Power}, ";
                     return Find(node.Right, power);
                 }
             }
