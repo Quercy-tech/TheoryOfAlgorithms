@@ -37,6 +37,7 @@ namespace Laba7_Binary_Trees_
 
         public BinarySearchTree bst = new BinarySearchTree();
          public static string text = "";
+        public static bool isNew = false;
 
         public class Node
         {
@@ -66,7 +67,17 @@ namespace Laba7_Binary_Trees_
                 if (node == null)
                 {
                     text += $"\n Creating a device with {power} power";
+                    isNew = true;
                     return Insert(new Node(power), power);
+                    
+                }
+
+
+                if (node.Power == power)
+                {
+                    if (!isNew) text += $"\n There is already device with {power} created!";
+                    isNew = false;
+                    return node;
                 }
 
 
@@ -93,7 +104,7 @@ namespace Laba7_Binary_Trees_
             {
                 if (node == null)
                 {
-                    text += $"No device found, creating a new device with power {power}  \n";
+                    text += $"No device found";
                     return Insert(node, power);
 
                 }
