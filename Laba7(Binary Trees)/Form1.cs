@@ -17,7 +17,7 @@ namespace Laba7_Binary_Trees_
             stopwatch.Start();
             bst.Insert(10);
             bst.Insert(6);
-            bst.Insert(12);
+            bst.Insert(11);
             bst.Insert(3);
             bst.Insert(7);
             bst.Insert(9);
@@ -26,7 +26,7 @@ namespace Laba7_Binary_Trees_
             bst.Insert(5);
             bst.Insert(14);
             bst.Insert(13);
-            bst.Insert(11);
+            bst.Insert(12);
             bst.Insert(16);
             bst.Insert(15);
             bst.Insert(17);
