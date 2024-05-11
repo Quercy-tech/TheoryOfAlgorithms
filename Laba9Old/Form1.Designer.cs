@@ -38,9 +38,10 @@ namespace Laba9
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -115,13 +116,33 @@ namespace Laba9
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(235, 648);
+            this.button4.Location = new System.Drawing.Point(81, 648);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(284, 82);
             this.button4.TabIndex = 7;
             this.button4.Text = "Алгоритм Бульбашкою";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(455, 648);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(284, 82);
+            this.button5.TabIndex = 8;
+            this.button5.Text = "Алгоритм Шелла";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(858, 648);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(284, 82);
+            this.button6.TabIndex = 9;
+            this.button6.Text = "Сортування підрахунком";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // richTextBox1
             // 
@@ -142,24 +163,15 @@ namespace Laba9
             this.label5.TabIndex = 11;
             this.label5.Text = "Результат";
             // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(677, 648);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(284, 82);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "Швидке сортування";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click_1);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1354, 1298);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -185,9 +197,10 @@ namespace Laba9
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button5;
     }
 }
 
