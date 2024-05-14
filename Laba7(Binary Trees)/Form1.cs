@@ -107,31 +107,34 @@ namespace Laba7_Binary_Trees_
             {
                 MessageBox.Show("Enter a valid input");
             }
+            else
+            {
 
-            textBox2.Text = "";
-            textBox3.Text = "";
+                textBox2.Text = "";
+                textBox3.Text = "";
 
-            List<RBNode> RB_way = new List<RBNode>();
-            List<AVLNode> AVL_way = new List<AVLNode>();
+                List<RBNode> RB_way = new List<RBNode>();
+                List<AVLNode> AVL_way = new List<AVLNode>();
 
-            RB_Tree.Search(power, RB_way);
-            AVL_Tree.Search(power, AVL_way);
+                RB_Tree.Search(power, RB_way);
+                AVL_Tree.Search(power, AVL_way);
 
 
-            bool Ishere_rb = rbNodes.Any(node_to_search => node_to_search.Value == power);
-            bool Ishere_avl = AVLNodes.Any(node_to_search => node_to_search.value == power);
+                bool Ishere_rb = rbNodes.Any(node_to_search => node_to_search.Value == power);
+                bool Ishere_avl = AVLNodes.Any(node_to_search => node_to_search.value == power);
 
-            if (!Ishere_rb) rbNodes.Add(new RBNode(power, true));
-            if (!Ishere_avl) AVLNodes.Add(new AVLNode(power));
+                if (!Ishere_rb) rbNodes.Add(new RBNode(power, true));
+                if (!Ishere_avl) AVLNodes.Add(new AVLNode(power));
 
-            foreach (var node_on_way in RB_way)
-                textBox2.Text += node_on_way.Value.ToString() + " -> ";
+                foreach (var node_on_way in RB_way)
+                    textBox2.Text += node_on_way.Value.ToString() + " -> ";
 
-            foreach (var node_on_way in AVL_way)
-                textBox3.Text += node_on_way.value.ToString() + " -> ";
+                foreach (var node_on_way in AVL_way)
+                    textBox3.Text += node_on_way.value.ToString() + " -> ";
 
-            DrawRBTree();
-            DrawAVLTree();
+                DrawRBTree();
+                DrawAVLTree();
+            }
         }
 
         private void remove_button_Click(object sender, EventArgs e)
@@ -241,17 +244,12 @@ namespace Laba7_Binary_Trees_
             if (node == null)
                 return;
 
-            // Ïîòî÷íèé âóçîë
             g.DrawEllipse(Pens.Black, x - 20, y - 20, 40, 40);
             g.DrawString(node.value.ToString(), new Font("Arial", 9), Brushes.Black, x - 10, y - 10);
 
-            // Ë³âå ï³ääåðåâî
             DrawAVLNode(node.left, g, x - xOffset, y + 50, (xOffset / 2) + 3);
-
-            // Ïðàâå ï³ääåðåâî
             DrawAVLNode(node.right, g, x + xOffset, y + 50, (xOffset / 2) + 3);
 
-            // Ðåáðà
             if (node.left != null)
                 g.DrawLine(Pens.Black, x, y, x - xOffset, y + 40);
             if (node.right != null)

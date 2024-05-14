@@ -17,7 +17,7 @@ namespace Laba9
         Stopwatch stopwatch = new Stopwatch();
 
         public bool isThreeWay = false;
-        static int lengthOfArray = 50;
+        static int lengthOfArray = 40;
         int[] array = new int[lengthOfArray];
         public Form1()
         {
