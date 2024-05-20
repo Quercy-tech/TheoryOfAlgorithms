@@ -84,7 +84,7 @@ namespace Laba7_Binary_Trees_
             {
                 MessageBox.Show("Enter a valid input");
             }
-            else
+            else 
             {
                 RB_Tree.Insert(power);
                 AVL_Tree.Insert(power);
