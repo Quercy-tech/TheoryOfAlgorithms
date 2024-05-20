@@ -11,14 +11,15 @@ namespace Laba7_Binary_Trees_
     
     public partial class Form1 : Form
     {
-        private RedBlackTree<int> redBlackTree;
+        private RedBlackTree redBlackTree;
         AVL_Tree AVL_Tree = new AVL_Tree();
         List<AVLNode> AVLNodes = new List<AVLNode>();
-
+        private Bitmap _RBbitmap;
+        private Graphics _RBgraphics;
         public Form1()
         {
             InitializeComponent();
-            redBlackTree = new RedBlackTree<int>();
+            redBlackTree = new RedBlackTree();
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -45,17 +46,48 @@ namespace Laba7_Binary_Trees_
             redBlackTree.Insert(150);
             redBlackTree.Insert(140);
 
-            TreeDrawer.DrawTree(redBlackTree.Root, pictureBox1);
+            _RBbitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            _RBgraphics = Graphics.FromImage(_RBbitmap);
+
             foreach (var node in AVLNodes)
             {
                 AVL_Tree.Insert(node.value);
             }
-
+            DrawAVLTree();
+            DrawTree();
             //stopwatch.Stop();
             //MessageBox.Show("Це зайняло " + stopwatch.ElapsedTicks + " ticks");
         }
 
-        
+        private void DrawTree()
+        {
+            _RBgraphics.Clear(Color.White);
+            DrawNode(redBlackTree.Root, 300, 20, 150);
+            pictureBox1.Image = _RBbitmap;
+        }
+
+        private void DrawNode(RedBlackTreeNode node, float x, float y, float dx)
+        {
+            if (node == null)
+                return;
+
+            Pen pen = node.NodeColor == ColorNode.Red ? Pens.Red : Pens.Black;
+
+            _RBgraphics.DrawEllipse(pen, x, y, 30, 30);
+            _RBgraphics.DrawString(node.Value.ToString(), new Font("Times New Roman", 10), Brushes.Black, x + 8, y + 8);
+
+            if (node.Left != null)
+            {
+                _RBgraphics.DrawLine(Pens.Black, x + 15, y + 30, x - dx + 15, y + 50);
+                DrawNode(node.Left, x - dx, y + 50, dx / 2);
+            }
+
+            if (node.Right != null)
+            {
+                _RBgraphics.DrawLine(Pens.Black, x + 15, y + 30, x + dx + 15, y + 50);
+                DrawNode(node.Right, x + dx, y + 50, dx / 2);
+            }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -70,18 +102,12 @@ namespace Laba7_Binary_Trees_
                 AVL_Tree.Insert(power);
 
                 redBlackTree.Insert(power);
-                RefreshTreeView();
                 AVLNodes.Add(new AVLNode(power));
-
+                DrawTree();
                 DrawAVLTree();
             }
             
 
-        }
-
-        private void RefreshTreeView()
-        {
-            TreeDrawer.DrawTree(redBlackTree.Root, pictureBox1);
         }
 
 
@@ -98,53 +124,29 @@ namespace Laba7_Binary_Trees_
 
                 textBox2.Text = "";
                 textBox3.Text = "";
-                RedBlackTreeNode<int> result = redBlackTree.Search(power);
-                if (result != null)
-                {
-                    List<int> path = GetPathToNode(redBlackTree.Root, power);
-                    TreeDrawer.DrawTreeWithHighlight(redBlackTree.Root, power, path);
-                }
-                else
-                {
-                    MessageBox.Show("Елемент не знайдено!.");
-                }
 
+                //string path = GetPath(RedBlackTreeNode(power));
+                List<RedBlackTreeNode> RB_way = new List<RedBlackTreeNode>();
                 List<AVLNode> AVL_way = new List<AVLNode>();
+                
 
                 AVL_Tree.Search(power, AVL_way);
+                redBlackTree.Search(power, RB_way);
 
 
                 bool Ishere_avl = AVLNodes.Any(node_to_search => node_to_search.value == power);
 
                 if (!Ishere_avl) AVLNodes.Add(new AVLNode(power));
 
-
+                foreach (var node_on_way in RB_way)
+                    textBox2.Text += node_on_way.Value.ToString() + " -> ";
                 foreach (var node_on_way in AVL_way)
                     textBox3.Text += node_on_way.value.ToString() + " -> ";
-
+                DrawTree();
                 DrawAVLTree();
             }
         }
 
-        private List<int> GetPathToNode(RedBlackTreeNode<int> node, int value)
-        {
-            List<int> path = new List<int>();
-
-            RedBlackTreeNode<int> current = node;
-            while (current != null)
-            {
-                path.Insert(0, current.Value); // Insert at the beginning to maintain the correct order
-                int compareResult = value.CompareTo(current.Value);
-                if (compareResult == 0)
-                    break; // Stop if the value matches
-                else if (compareResult < 0)
-                    current = current.Left; // Move to the left child
-                else
-                    current = current.Right; // Move to the right child
-            }
-
-            return path;
-        }
 
         private void remove_button_Click(object sender, EventArgs e)
         {
@@ -156,7 +158,7 @@ namespace Laba7_Binary_Trees_
             {
                 redBlackTree.Delete(power);
                 AVL_Tree.Remove(power);
-                RefreshTreeView();
+                DrawTree();
                 //MessageBox.Show(text);
 
                 foreach (var node_to_del in AVLNodes)
@@ -179,7 +181,7 @@ namespace Laba7_Binary_Trees_
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            DrawAVLTree();
+            
         }
 
 
