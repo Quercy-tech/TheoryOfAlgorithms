@@ -1,307 +1,158 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Laba7_Binary_Trees_
 {
-    internal class RedBlackTree
+    public class RedBlackTree<T> where T : IComparable<T>
     {
-        public RBNode root;
+        public RedBlackTreeNode<T> Root { get; private set; }
 
-        //Додавання вузла
-        public void Insert(int value)
+        // Метод для вставки елемента в червоно-чорне дерево
+        public void Insert(T value)
         {
-            root = InsertNode(root, value);
-            root.IsRed = false; // корінь завжди чорний
+            Root = InsertRecursive(Root, value);
+            Root.Color = NodeColor.Black; // Корінь завжди чорний
         }
 
-        private RBNode InsertNode(RBNode current, int value)
+        private RedBlackTreeNode<T> InsertRecursive(RedBlackTreeNode<T> node, T value)
         {
-            if (current == null)
-            {
-                return new RBNode(value, true);
-            }
+            if (node == null)
+                return new RedBlackTreeNode<T>(value);
 
-            if (value < current.Value)
-            {
-                current.LeftChild = InsertNode(current.LeftChild, value);
-            }
-            else if (value > current.Value)
-            {
-                current.RightChild = InsertNode(current.RightChild, value);
-            }
+            if (value.CompareTo(node.Value) < 0)
+                node.Left = InsertRecursive(node.Left, value);
+            else if (value.CompareTo(node.Value) > 0)
+                node.Right = InsertRecursive(node.Right, value);
 
-            // Реалізація балансування червоно-чорного дерева
-            bool IsRotate = false;
+            // Перевірка на порушення властивостей червоно-чорного дерева
+            if (IsRed(node.Right) && !IsRed(node.Left))
+                node = RotateLeft(node);
+            if (IsRed(node.Left) && IsRed(node.Left?.Left))
+                node = RotateRight(node);
+            if (IsRed(node.Left) && IsRed(node.Right))
+                FlipColors(node);
 
-
-            if (IsRed(current.RightChild) && !IsRed(current.LeftChild))
-            {
-                current = RotateLeft(current);
-                IsRotate = true;
-
-            }
-            if (IsRed(current.LeftChild) && IsRed(current.LeftChild.LeftChild))
-            {
-                current = RotateRight(current);
-                IsRotate = true;
-
-            }
-            if (IsRed(current.LeftChild) && IsRed(current.RightChild))
-            {
-                FlipColors(current);
-            }
-
-            // Реалізація балансування червоно-чорного дерева, аналогічна до балансування збалансованого
-            current.height = Math.Max(Height(current.LeftChild), Height(current.RightChild)) + 1;
-
-            int balance = GetBalance(current);
-
-
-            if (!IsRotate)
-            {
-                if (balance > 1) // Якщо різниця висот > 1 (ліве піддерево довше)
-                {
-                    if (value < current.LeftChild.Value) // Якщо потужність доданого вузла > потужності лівого сина  
-                    {
-                        return RotateRight(current);  // Правий оберт
-                    }
-                    else // Якщо потужність доданого вузла <= потужності лівого сина  
-                    {
-                        current.LeftChild = RotateLeft(current.LeftChild);
-                        return RotateRight(current);
-                    }
-                }
-                else if (balance < -1) // Якщо різниця висот > 1 (праве піддерево довше)  
-                {
-                    if (value > current.RightChild.Value) // Якщо потужність доданого вузла > потужності правого сина
-                    {
-                        return RotateLeft(current);// Лівий оберт
-                    }
-
-                    else      // Якщо потужність доданого вузла <= потужності правого сина  
-                    {
-                        current.RightChild = RotateRight(current.RightChild);
-                        return RotateLeft(current);
-                    }
-                }
-            }
-            return current;
+            return node;
         }
 
-
-
-        // Видалення вузла
-
-        public void Delete(int value)
+        // Пошук елемента в червоно-чорному дереві
+        public RedBlackTreeNode<T> Search(T value)
         {
-            root = DeleteNode(root, value);
-        }
-
-        private RBNode DeleteNode(RBNode current, int value)
-        {
-            if (current == null)
+            RedBlackTreeNode<T> current = Root;
+            while (current != null)
             {
-                return null;
-            }
-
-            if (value < current.Value)
-            {
-                current.LeftChild = DeleteNode(current.LeftChild, value);
-            }
-            else if (value > current.Value)
-            {
-                current.RightChild = DeleteNode(current.RightChild, value);
-            }
-            else // Якщо потужність видаленого вузла = потужності поточного вузла 
-            {
-                if (current.LeftChild == null) // Якщо у нас лише правий син - повертаемо його
-                {
-                    return current.RightChild;
-                }
-                if (current.RightChild == null) // Якщо у нас лише лівий син - повертаемо його
-                {
-                    return current.LeftChild;
-                }
-
-                // Якщо у нас два сини - шукаємо мінімальний та повертаемо його
-                RBNode temp = current;
-                current = FindMin(temp.RightChild);
-                current.RightChild = DeleteMin(temp.RightChild);
-                current.LeftChild = temp.LeftChild;
-            }
-
-            // Реалізація балансування червоно-чорного дерева
-            if (IsRed(current.RightChild) && !IsRed(current.LeftChild))
-            {
-                current = RotateLeft(current);
-            }
-            if (IsRed(current.LeftChild) && IsRed(current.LeftChild.LeftChild))
-            {
-                current = RotateRight(current);
-            }
-            if (IsRed(current.LeftChild) && IsRed(current.RightChild))
-            {
-                FlipColors(current);
-            }
-
-            // Реалізація балансування червоно-чорного дерева, аналогічна до балансування збалансованого
-            current.height = 1 + Math.Max(Height(current.LeftChild), Height(current.RightChild));
-
-            int balance = GetBalance(current);
-
-
-            if (balance > 1 && GetBalance(current.LeftChild) >= 0)
-                return RotateRight(current);
-
-            if (balance > 1 && GetBalance(current.LeftChild) < 0)
-            {
-                current.LeftChild = RotateLeft(current.LeftChild);
-                return RotateRight(current);
-            }
-            if (balance < -1 && GetBalance(current.RightChild) <= 0)
-                return RotateLeft(current);
-
-            if (balance < -1 && GetBalance(current.RightChild) > 0)
-            {
-                current.RightChild = RotateRight(current.RightChild);
-                return RotateLeft(current);
-            }
-
-            return current;
-        }
-
-        // Пошук мінімального серед листків для вставки замість корення
-        private RBNode FindMin(RBNode current)
-        {
-            if (current.LeftChild == null)
-            {
-                return current;
-            }
-            return FindMin(current.LeftChild);
-        }
-
-        // Видалення мінімального серед листків
-        private RBNode DeleteMin(RBNode current)
-        {
-            if (current.LeftChild == null)
-            {
-                return current.RightChild;
-            }
-            current.LeftChild = DeleteMin(current.LeftChild);
-            return current;
-        }
-
-
-
-
-        // Пошук у дереві
-
-        public void Search(int value, List<RBNode> way)
-        {
-            var node = root;
-            node = SearchNode(node, value, way);
-
-            if (node == null) // Якщо не знайдено - додати
-            {
-                Insert(value);
-            }
-
-        }
-        internal RBNode SearchNode(RBNode current, int value, List<RBNode> way)
-        {
-            var currentNode = current;
-            while (currentNode != null)
-            {
-                way.Add(currentNode);
-                if (currentNode.Value == value)
-                {
-                    return currentNode;
-                }
-                else if (currentNode.Value < value)
-                {
-                    currentNode = currentNode.RightChild;
-                }
+                if (value.CompareTo(current.Value) == 0)
+                    return current;
+                else if (value.CompareTo(current.Value) < 0)
+                    current = current.Left;
                 else
-                {
-                    currentNode = currentNode.LeftChild;
-                }
+                    current = current.Right;
+
+                // Перевірка, чи поточний вузол є листком
+                if (current != null && current.Left == null && current.Right == null && !current.Value.Equals(value))
+                    return null; // Якщо поточний вузол - листок, і не знайдено шукане значення, повертаємо null
             }
-            return null;
+            return null; // Елемент не знайдено
         }
 
-        // Функції для балансування червоно-чорного дерева
 
-        // Лівий оберт
-        private RBNode RotateLeft(RBNode node)
+        // Видалення елемента з червоно-чорного дерева
+        public void Delete(T value)
         {
-            RBNode right = node.RightChild;
-            RBNode left = right.LeftChild;
-
-            node.RightChild = left;
-            right.LeftChild = node;
-
-            right.IsRed = node.IsRed;
-            node.IsRed = true;
-
-            node.height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
-            right.height = Math.Max(Height(right.LeftChild), Height(right.RightChild)) + 1;
-
-            return right;
+            Root = DeleteRecursive(Root, value);
+            if (Root != null) // Перевірка на наявність кореня
+                Root.Color = NodeColor.Black; // Корінь завжди чорний
         }
 
-        //Правий оберт
-        private RBNode RotateRight(RBNode node)
-        {
-            RBNode left = node.LeftChild;
-            RBNode right = left.RightChild;
-
-            node.LeftChild = right;
-            left.RightChild = node;
-
-            left.IsRed = node.IsRed;
-            node.IsRed = true;
-
-            node.height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
-            left.height = Math.Max(Height(left.LeftChild), Height(left.RightChild)) + 1;
-
-            return left;
-        }
-
-        // Зміна кольору
-        private void FlipColors(RBNode node)
-        {
-            node.IsRed = true;
-            node.LeftChild.IsRed = false;
-            node.RightChild.IsRed = false;
-        }
-
-        // Чи є красним?
-        private bool IsRed(RBNode node)
-        {
-            if (node == null) return false;
-            return node.IsRed;
-        }
-
-        // Висота піддерева
-        private int Height(RBNode node)
+        // Рекурсивний метод для видалення елемента
+        private RedBlackTreeNode<T> DeleteRecursive(RedBlackTreeNode<T> node, T value)
         {
             if (node == null)
-                return 0;
+                return null;
 
-            return node.height;
+            if (value.CompareTo(node.Value) < 0)
+                node.Left = DeleteRecursive(node.Left, value);
+            else if (value.CompareTo(node.Value) > 0)
+                node.Right = DeleteRecursive(node.Right, value);
+            else
+            {
+                if (node.Left == null)
+                    return node.Right;
+                else if (node.Right == null)
+                    return node.Left;
+
+                // Вузол має два нащадки, знаходимо найменший в правому піддереві
+                RedBlackTreeNode<T> minNode = MinimumValueNode(node.Right);
+                node.Value = minNode.Value;
+                node.Right = DeleteRecursive(node.Right, minNode.Value);
+
+                // Перевірка на порушення властивостей червоно-чорного дерева
+                if (IsRed(node.Right) && !IsRed(node.Left))
+                    node = RotateLeft(node);
+                if (IsRed(node.Left) && IsRed(node.Left?.Left))
+                    node = RotateRight(node);
+                if (IsRed(node.Left) && IsRed(node.Right))
+                    FlipColors(node);
+            }
+
+            // Перебалансування після видалення
+            if (IsRed(node.Right) && !IsRed(node.Left))
+                node = RotateLeft(node);
+            if (IsRed(node.Left) && IsRed(node.Left?.Left))
+                node = RotateRight(node);
+            if (IsRed(node.Left) && IsRed(node.Right))
+                FlipColors(node);
+
+            // Оновлення висоти
+            node.UpdateHeight();
+
+            return node;
         }
 
-        // Баланс дерева (різниця висот) - одна из властивостей
-        private int GetBalance(RBNode node)
+        // Допоміжний метод для пошуку найменшого вузла в дереві
+        private RedBlackTreeNode<T> MinimumValueNode(RedBlackTreeNode<T> node)
+        {
+            RedBlackTreeNode<T> current = node;
+            while (current.Left != null)
+            {
+                current = current.Left;
+            }
+            return current;
+        }
+
+        // Допоміжний метод для перевірки, чи є вузол червоним
+        private bool IsRed(RedBlackTreeNode<T> node)
         {
             if (node == null)
-                return 0;
+                return false;
+            return node.Color == NodeColor.Red;
+        }
 
-            return Height(node.LeftChild) - Height(node.RightChild);
+        // Метод для зміни кольорів вершини та її дітей
+        private void FlipColors(RedBlackTreeNode<T> node)
+        {
+            node.Color = NodeColor.Red;
+            node.Left.Color = NodeColor.Black;
+            node.Right.Color = NodeColor.Black;
+        }
+
+        private RedBlackTreeNode<T> RotateLeft(RedBlackTreeNode<T> node)
+        {
+            RedBlackTreeNode<T> newRoot = node.Right;
+            node.Right = newRoot.Left;
+            newRoot.Left = node;
+            newRoot.Color = node.Color; // Зберігаємо колір вершини node
+            node.Color = NodeColor.Red; // Змінюємо колір вершини node на червоний
+            return newRoot;
+        }
+
+        private RedBlackTreeNode<T> RotateRight(RedBlackTreeNode<T> node)
+        {
+            RedBlackTreeNode<T> newRoot = node.Left;
+            node.Left = newRoot.Right;
+            newRoot.Right = node;
+            newRoot.Color = node.Color; // Зберігаємо колір вершини node
+            node.Color = NodeColor.Red; // Змінюємо колір вершини node на червоний
+            return newRoot;
         }
     }
 }

@@ -9,19 +9,61 @@ namespace Laba7_Binary_Trees_
 {
 
     // Вузли червоно-чорного дерева
-    internal class RBNode
+    public enum NodeColor
     {
-        public int Value { get; set; } // Потужність
-        public bool IsRed { get; set; } // Колір вузола
-        public RBNode LeftChild { get; set; }
-        public RBNode RightChild { get; set; }
+        Red,
+        Black
+    }
+    public class RedBlackTreeNode<T> where T : IComparable<T>
+    {
+        public T Value { get; set; }
+        public RedBlackTreeNode<T> Left { get; set; }
+        public RedBlackTreeNode<T> Right { get; set; }
+        public RedBlackTreeNode<T> Parent { get; set; } // Додано поле Parent
+        public NodeColor Color { get; set; }
+        public int Height { get; set; }
 
-        public int height; // Висота піддерева
-        public RBNode(int value, bool isRed)
+        public RedBlackTreeNode(T value)
         {
             Value = value;
-            IsRed = isRed;
-            height = 1;
+            Left = null;
+            Right = null;
+            Height = 1;
+            Color = NodeColor.Red;
+        }
+
+        public void UpdateHeight()
+        {
+            int leftHeight = (Left != null) ? Left.Height : 0;
+            int rightHeight = (Right != null) ? Right.Height : 0;
+            Height = 1 + Math.Max(leftHeight, rightHeight);
+        }
+
+        public int BalanceFactor()
+        {
+            int leftHeight = (Left != null) ? Left.Height : 0;
+            int rightHeight = (Right != null) ? Right.Height : 0;
+            return leftHeight - rightHeight;
+        }
+
+        public RedBlackTreeNode<T> RotateLeft()
+        {
+            RedBlackTreeNode<T> newRoot = Right;
+            Right = newRoot.Left;
+            newRoot.Left = this;
+            UpdateHeight();
+            newRoot.UpdateHeight();
+            return newRoot;
+        }
+
+        public RedBlackTreeNode<T> RotateRight()
+        {
+            RedBlackTreeNode<T> newRoot = Left;
+            Left = newRoot.Right;
+            newRoot.Right = this;
+            UpdateHeight();
+            newRoot.UpdateHeight();
+            return newRoot;
         }
     }
 
