@@ -1,153 +1,116 @@
 ﻿using System;
+using System.Collections.Generic;
 
-public class SmoothSort
+public class GFG
 {
-    public static void Main(int n)
+    // A utility function to print an array
+    static void print(int[] arr, int n)
     {
-        int[] lst = new int[n];
         for (int i = 0; i < n; i++)
         {
-            lst[i] = i;
+            Console.Write(arr[i] + " ");
         }
-        Shuffle(lst);
-        Console.WriteLine("Shuffled list: " + string.Join(", ", lst));
-        SmoothSortAlgorithm(lst);
-        Console.WriteLine("Sorted list: " + string.Join(", ", lst));
+        Console.WriteLine();
     }
 
-    public static void Shuffle(int[] lst)
+    // A utility function to get the digit at index d in an integer
+    static int digit_at(int x, int d)
+    {
+        return (int)(x / Math.Pow(10, d - 1)) % 10;
+    }
+
+    // The main function to sort array using MSD Radix Sort recursively
+    static int[] MSD_sort(int[] arr, int lo, int hi, int d)
+    {
+        // recursion break condition
+        if (hi <= lo || d < 1)
+        {
+            return arr;
+        }
+
+        int[] count = new int[10 + 2];  // For counting 0-9 plus two additional spaces
+        List<int> temp = new List<int>(new int[hi - lo + 1]);  // Use List to easily swap elements
+
+        // Store occurrences of the most significant character from each integer in count
+        for (int i = lo; i <= hi; i++)
+        {
+            int c = digit_at(arr[i], d);
+            count[c + 2]++;
+        }
+
+        // Change count so that it contains actual positions of these digits in temp
+        for (int r = 0; r < 10 + 1; r++)
+            count[r + 1] += count[r];
+
+        // Build the temp
+        for (int i = lo; i <= hi; i++)
+        {
+            int c = digit_at(arr[i], d);
+            temp[count[c + 1]++] = arr[i];
+        }
+
+        // Copy all integers of temp back to arr
+        for (int i = lo; i <= hi; i++)
+            arr[i] = temp[i - lo];
+
+        // Recursively MSD_sort on each partially sorted integer set
+        for (int r = 0; r < 10; r++)
+            MSD_sort(arr, lo + count[r], lo + count[r + 1] - 1, d - 1);
+
+        return arr;
+    }
+
+    // Function to find the largest integer
+    static int getMax(int[] arr, int n)
+    {
+        int mx = arr[0];
+        for (int i = 1; i < n; i++)
+            if (arr[i] > mx)
+                mx = arr[i];
+        return mx;
+    }
+
+    // Main function to call MSD_sort
+    static int[] radixsort(int[] arr, int n)
+    {
+        // Find the maximum number to know number of digits
+        int m = getMax(arr, n);
+
+        // Get the length of the largest integer
+        int d = (int)Math.Floor(Math.Log10(Math.Abs(m))) + 1;
+
+        // Function call
+        return MSD_sort(arr, 0, n - 1, d);
+    }
+
+    // Driver Code
+    public static void Main(String[] args)
     {
         Random random = new Random();
-        for (int i = lst.Length - 1; i > 0; i--)
+        // Input array
+        int lengthOfArray = 1000;
+        int[] gigaArray = new int[lengthOfArray];
+        for (int i = 0; i < lengthOfArray; i++)
         {
-            int j = random.Next(i + 1);
-            int temp = lst[i];
-            lst[i] = lst[j];
-            lst[j] = temp;
+            gigaArray[i] = random.Next(100000);
         }
-    }
+        // Size of the array
+        int n = gigaArray.Length;
 
-    public static void SmoothSortAlgorithm(int[] lst)
-    {
-        int[] leoNums = LeonardoNumbers(lst.Length);
-        int[] heap = new int[lst.Length];
-        int heapSize = 0;
+        Console.Write("Unsorted array : ");
 
-        // Create initial heap
-        for (int i = 0; i < lst.Length; i++)
-        {
-            if (heapSize >= 2 && heap[heapSize - 2] == heap[heapSize - 1] + 1)
-            {
-                heapSize--;
-                heap[heapSize - 1]++;
-            }
-            else
-            {
-                if (heapSize >= 1 && heap[heapSize - 1] == 1)
-                {
-                    heap[heapSize++] = 0;
-                }
-                else
-                {
-                    heap[heapSize++] = 1;
-                }
-            }
-            RestoreHeap(lst, i, heap, heapSize, leoNums);
-        }
+        // Print the unsorted array
+        print(gigaArray, n);
 
-        // Decompose the heap
-        for (int i = lst.Length - 1; i >= 0; i--)
-        {
-            if (heap[heapSize - 1] < 2)
-            {
-                heapSize--;
-            }
-            else
-            {
-                int k = heap[--heapSize];
-                var (t_r, k_r, t_l, k_l) = GetChildTrees(i, k, leoNums);
-                heap[heapSize++] = k_l;
-                RestoreHeap(lst, t_l, heap, heapSize, leoNums);
-                heap[heapSize++] = k_r;
-                RestoreHeap(lst, t_r, heap, heapSize, leoNums);
-            }
-        }
-    }
+        // Function Call
+        gigaArray = radixsort(gigaArray, n);
 
-    public static int[] LeonardoNumbers(int hi)
-    {
-        int a = 1, b = 1;
-        int[] numbers = new int[hi];
-        int count = 0;
-        while (a <= hi)
-        {
-            numbers[count++] = a;
-            int temp = a;
-            a = b;
-            b = temp + b + 1;
-        }
-        Array.Resize(ref numbers, count);
-        return numbers;
-    }
+        Console.Write("Sorted array : ");
 
-    public static void RestoreHeap(int[] lst, int i, int[] heap, int heapSize, int[] leoNums)
-    {
-        int current = heapSize - 1;
-        int k = heap[current];
-
-        while (current > 0)
-        {
-            int j = i - leoNums[k];
-            if (lst[j] > lst[i] && (k < 2 || (lst[j] > lst[i - 1] && lst[j] > lst[i - 2])))
-            {
-                int temp = lst[i];
-                lst[i] = lst[j];
-                lst[j] = temp;
-                i = j;
-                current--;
-                k = heap[current];
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        while (k >= 2)
-        {
-            var (t_r, k_r, t_l, k_l) = GetChildTrees(i, k, leoNums);
-            if (lst[i] < lst[t_r] || lst[i] < lst[t_l])
-            {
-                if (lst[t_r] > lst[t_l])
-                {
-                    int temp = lst[i];
-                    lst[i] = lst[t_r];
-                    lst[t_r] = temp;
-                    i = t_r;
-                    k = k_r;
-                }
-                else
-                {
-                    int temp = lst[i];
-                    lst[i] = lst[t_l];
-                    lst[t_l] = temp;
-                    i = t_l;
-                    k = k_l;
-                }
-            }
-            else
-            {
-                break;
-            }
-        }
-    }
-
-    public static (int, int, int, int) GetChildTrees(int i, int k, int[] leoNums)
-    {
-        int t_r = i - 1;
-        int k_r = k - 2;
-        int t_l = t_r - leoNums[k_r];
-        int k_l = k - 1;
-        return (t_r, k_r, t_l, k_l);
+        // Print the sorted array
+        print(gigaArray, n);
+        Console.ReadLine();
     }
 }
+
+// This code is contributed by Rajput-Ji
